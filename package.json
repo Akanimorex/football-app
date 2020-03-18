@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node-dev index",
+    "start": "node index"
   },
   "repository": {
     "type": "git",
@@ -31,6 +33,12 @@
     "sqlite3": "^4.1.1",
     "underscore": "^1.9.2"
   },
+<<<<<<< HEAD
   "devDependencies": {},
   "description": ""
+=======
+  "devDependencies": {
+    "node-dev": "^4.0.0"
+  }
+>>>>>>> b148d7a3ee9bdf4fc7bc3384ee1b12af68c99d93
 }

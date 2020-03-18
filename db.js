@@ -5,7 +5,7 @@ const db = {};
 // create connection
 if(process.env.NODE_ENV != "development"){
 	//connection to production env
-	sequelizeInst = new Sequelize(process.env.DATABASE_URL,{
+	sequelize = new Sequelize(process.env.DATABASE_URL,{
 		dialect: 'postgres',
 		ssl: true
 	});
