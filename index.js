@@ -10,20 +10,19 @@ app.use(express.json());
 app.use(express.static(__dirname + "/public"));
 
 app.get('/', (req, res)=>{
-	res.sendFile(`/index.html`);
+	res.sendFile(`${__dirname}/public/index.html`);
 });
 
 app.get('/login', (req, res)=>{
-	console.log("Auth", req.get("Auth"), res.header());
-	res.sendFile('/login.html');
+	res.sendFile(`${__dirname}/public/login.html`);
 });
 
 app.get('/register', (req, res)=>{
-	res.sendFile('/register.html');
+	res.sendFile(`${__dirname}/public/register.html`);
 });
 
 app.get('/tactics', (req, res)=>{
-	res.sendFile('/tactics.html');
+	res.sendFile(`${__dirname}/public/tactics.html`);
 });
 
 app.get('/sign-out', (req, res)=>{
@@ -48,7 +47,7 @@ app.post('/sign-in', (req, res)=>{
 
 // Handle 500
 app.use(function(error, req, res, next) {
-  res.status(500).send('500: Internal Server Error');
+  res.status(500).send(`${error}500: Internal Server Error`);
 });
 
 // Handle 404
