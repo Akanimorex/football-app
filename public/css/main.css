@@ -51,10 +51,14 @@ body{
 
 
 button[type="submit"]:hover{
-	background-color:#1a53ff;
+	background-color:rgb(2, 134, 2);
 	color:#fff;
 }
 /* register page */
+
+.reg-text a{
+	color: green;
+}
 
 
 .card-two{
@@ -70,12 +74,6 @@ button[type="submit"]:hover{
 }
 
 
-.register input{
-  margin: 10px;
-  /* border-top:none;
-  border-left:none;
-  border-right: none; */
-}
 .register button[type="submit"]{
 	margin-left:4%;
 	width: 100%;
@@ -100,8 +98,8 @@ button[type="submit"]:hover{
 
 }
 #home .container .home-btn{
-	background:#fff;
-	color:black;
+	
+	color:#fff;
 	padding:10px 30px 10px 30px;
 	margin-top: 30px;
 } 
@@ -126,4 +124,44 @@ button[type="submit"]:hover{
 } 
 nav .navbar-nav > li{
 	padding:5px 20px 5px 20px;
+	
+}
+
+.nav-side{
+	background: rgb(112, 139, 70);
+	overflow: hidden;
+	padding: 20px;
+	border-radius: 11px;
+	max-height: 85vh;
+	overflow:scroll;
+	
+	
+}
+.nav-side h5{
+	color: white;
+	font-weight: bold;
+}
+ #myTab .wrapper{
+	background: white;
+	opacity: 0.6;
+    /* width: fit-content; */
+    padding: 30px;
+	border-radius: 11px;
+	margin-top: 5%;
+}
+#myTab li{
+	/* list-style-type: none !important; */
+	padding: 10px;
+	color:#000;
+  }
+
+  #myTab  .side-nav-link{
+	  color: #fff;
+	  font-weight: bold;
+	  
+	
+  }
+.pic-list li{
+	color: #fff;
+	padding: 20px;
 }
