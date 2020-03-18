@@ -23,6 +23,7 @@
   "homepage": "https://github.com/Akanimorex/football-app#readme",
   "dependencies": {
     "bcrypt": "^4.0.1",
+    "cookie-parser": "^1.4.4",
     "crypto-js": "^4.0.0",
     "dotenv": "^8.2.0",
     "ejs": "^3.0.1",
@@ -33,12 +34,7 @@
     "sqlite3": "^4.1.1",
     "underscore": "^1.9.2"
   },
-<<<<<<< HEAD
-  "devDependencies": {},
-  "description": ""
-=======
   "devDependencies": {
     "node-dev": "^4.0.0"
   }
->>>>>>> b148d7a3ee9bdf4fc7bc3384ee1b12af68c99d93
 }
