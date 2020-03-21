@@ -4,10 +4,22 @@ const express = require("express");
 const PORT = process.env.PORT || 3000;
 const app = express();
 const db = require('./db');
+const cookieParser = require("cookie-parser");
+
+function authentication(req, res, next){
+	db.user.findByToken(req.cookies.auth).then(function(user){
+		if (!user) return res.status(401).send();
+		req.user = user;
+		next();
+	},	function(e){
+		res.status(401).redirect('/');
+	});
+}
 
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use(express.static(__dirname + "/public"));
+app.use(cookieParser());
 
 app.get('/', (req, res)=>{
 	res.sendFile(`${__dirname}/public/index.html`);
@@ -21,27 +33,33 @@ app.get('/register', (req, res)=>{
 	res.sendFile(`${__dirname}/public/register.html`);
 });
 
-app.get('/tactics', (req, res)=>{
+app.get('/tactics', authentication, (req, res)=>{
 	res.sendFile(`${__dirname}/public/tactics.html`);
 });
 
 app.get('/sign-out', (req, res)=>{
-	res.send('logged out');
+	res.clearCookie('auth').redirect('/');
+});
+
+app.get('/tactic-style', authentication, (req, res)=>{
+	res.sendFile(`${__dirname}/public/tactic-style.html`);
 });
 
 app.post('/sign-up', (req, res)=>{
 	db.user.create(req.body).then(function(user){
-		res.json(user.toPublicJSON());
+		res.cookie("auth", user.generateToken("Authentication"));
+		res.redirect('/tactics');
 	}, function() {
-		res.status(500).send();
+		res.status(500).redirect("/register");
 	});
 });
 
 app.post('/sign-in', (req, res)=>{
 	db.user.authenticate(req.body).then(function(user){
-		res.header("Auth", user.generateToken("Authentication")).json(user.toPublicJSON());
+		res.cookie("auth", user.generateToken("Authentication"));
+		res.redirect('/tactics');
 	}, function(e){
-		res.status(401).send();
+		res.status(401).redirect('/login');
 	});
 });
 
@@ -56,7 +74,7 @@ app.use(function(req, res) {
 });
 
 // 
-db.sequelize.sync({force: true}).then(function () {
+db.sequelize.sync({force: false}).then(function () {
 	http.createServer(app).listen(PORT, ()=>{
 		console.log(`server runnning on port ${PORT}`);
 	});
