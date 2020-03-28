@@ -21,6 +21,9 @@ app.use(express.json());
 app.use(express.static(__dirname + "/public"));
 app.use(cookieParser());
 
+
+
+
 app.get('/', (req, res)=>{
 	res.sendFile(`${__dirname}/public/index.html`);
 });
@@ -33,12 +36,16 @@ app.get('/register', (req, res)=>{
 	res.sendFile(`${__dirname}/public/register.html`);
 });
 
-app.get('/tactics', authentication, (req, res)=>{
-	res.sendFile(`${__dirname}/public/tactics.html`);
+app.get('/quiz', authentication, (req, res)=>{
+	res.sendFile(`${__dirname}/public/quiz.html`);
 });
 
 app.get('/sign-out', (req, res)=>{
 	res.clearCookie('auth').redirect('/');
+});
+
+app.get('/tactics', (req, res)=>{
+	res.sendFile(`${__dirname}/public/tactics.html`);
 });
 
 app.get('/tactic-style', authentication, (req, res)=>{
@@ -48,7 +55,7 @@ app.get('/tactic-style', authentication, (req, res)=>{
 app.post('/sign-up', (req, res)=>{
 	db.user.create(req.body).then(function(user){
 		res.cookie("auth", user.generateToken("Authentication"));
-		res.redirect('/tactics');
+		res.redirect('/quiz');
 	}, function() {
 		res.status(500).redirect("/register");
 	});
@@ -57,7 +64,7 @@ app.post('/sign-up', (req, res)=>{
 app.post('/sign-in', (req, res)=>{
 	db.user.authenticate(req.body).then(function(user){
 		res.cookie("auth", user.generateToken("Authentication"));
-		res.redirect('/tactics');
+		res.redirect('/quiz');
 	}, function(e){
 		res.status(401).redirect('/login');
 	});
@@ -74,7 +81,7 @@ app.use(function(req, res) {
 });
 
 // 
-db.sequelize.sync({force: false}).then(function () {
+db.sequelize.sync({force: true}).then(function () {
 	http.createServer(app).listen(PORT, ()=>{
 		console.log(`server runnning on port ${PORT}`);
 	});
